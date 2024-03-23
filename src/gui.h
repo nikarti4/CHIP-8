@@ -7,15 +7,14 @@
 
 // Colors
 //--------------0bRGB
-#define BLACK       0b000
-#define RED         0b100
-#define YELLOW      0b110
-#define GREEN       0b010
-#define FUCHSIA     0b101
-#define CYAN        0b011
-#define BLUE        0b001
-#define WHITE       0b111
-
+#define BLACK 0b000
+#define RED 0b100
+#define YELLOW 0b110
+#define GREEN 0b010
+#define FUCHSIA 0b101
+#define CYAN 0b011
+#define BLUE 0b001
+#define WHITE 0b111
 
 typedef struct {
   SDL_Window* wnd;
@@ -27,11 +26,7 @@ typedef struct {
   unsigned int flags;
 } draw_t;
 
-typedef enum {
-    QUIT,
-    RUN,
-    PAUSE
-} emu_state_t;
+typedef enum { QUIT, RUN, PAUSE } emu_state_t;
 
 // init SDL
 // 0 - OK
@@ -44,7 +39,7 @@ void gui_end(draw_t* screen);
 // w x h - size
 // flags - some flags, read SDL wiki for more
 void gui_screen_configs(draw_t* screen, int x, int y, int w, int h,
-                   unsigned int flags);
+                        unsigned int flags);
 // clear screen with color from define
 void gui_clear_screen(draw_t* screen, unsigned char color);
 // Swap buffers

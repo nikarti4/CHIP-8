@@ -5,7 +5,7 @@
 // w x h - size
 // flags - some flags, read SDL wiki for more
 void gui_screen_configs(draw_t* screen, int x, int y, int w, int h,
-                   unsigned int flags) {
+                        unsigned int flags) {
   screen->x = x;
   screen->y = y;
   screen->w = w;
@@ -32,12 +32,13 @@ int gui_init(draw_t* screen) {
       flag = 1;
     } else {
       // rdr will be NULL on failure
-      screen->rdr = SDL_CreateRenderer(screen->wnd, -1, SDL_RENDERER_ACCELERATED);
+      screen->rdr =
+          SDL_CreateRenderer(screen->wnd, -1, SDL_RENDERER_ACCELERATED);
 
       if (!screen->rdr) {
         SDL_Log("SDL_CreateRenderer FAIL due to: %s \n", SDL_GetError());
         flag = 1;
-      } 
+      }
     }
   }
 
@@ -53,7 +54,6 @@ void gui_end(draw_t* screen) {
 
 // Clear screen with color from define (background color)
 void gui_clear_screen(draw_t* screen, unsigned char color) {
-
   unsigned char r = ((color & RED) >> 2) * 255;
   unsigned char g = ((color & GREEN) >> 1) * 255;
   unsigned char b = (color & BLUE) * 255;
@@ -63,30 +63,27 @@ void gui_clear_screen(draw_t* screen, unsigned char color) {
 }
 
 // Swap buffers
-void gui_update_screen(draw_t* screen) {
-  SDL_RenderPresent(screen->rdr);
-}
-
+void gui_update_screen(draw_t* screen) { SDL_RenderPresent(screen->rdr); }
 
 // Handle user's input from keyboard
 void gui_user_input(emu_state_t* state) {
   SDL_Event event;
 
   while (SDL_PollEvent(&event)) {
-    switch(event.type) {
+    switch (event.type) {
       case SDL_QUIT:
         *state = QUIT;
         break;
 
       case SDL_KEYDOWN:
 
-        switch(event.key.keysym.sym) {
+        switch (event.key.keysym.sym) {
           case SDLK_ESCAPE:
-          *state = QUIT;
-          break;
+            *state = QUIT;
+            break;
 
           default:
-          break;
+            break;
         }
 
         break;
@@ -102,7 +99,7 @@ void gui_user_input(emu_state_t* state) {
 
 // FPS rate
 void gui_fps_rate(unsigned int rate) {
-  unsigned int ms = 17; // 60fps on default
+  unsigned int ms = 17;  // 60fps on default
   if (rate != 0) {
     ms = 1000 / rate;
   }

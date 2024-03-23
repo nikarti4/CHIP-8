@@ -15,13 +15,11 @@ int main(int argc, char* argv[]) {
   if (gui_init(&screen) != 0) {
     printf("Something went wrong..\n");
   } else {
-
     // Set background color
     gui_clear_screen(&screen, FUCHSIA);
 
     // Main loop !!!
     while (state != QUIT) {
-
       gui_user_input(&state);
 
       gui_fps_rate(60);
