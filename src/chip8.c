@@ -54,7 +54,7 @@ int chip8_init(chip8_t* chip8, char* rom_path) {
       // CHIP-8 Inintial conditions
       chip8->state = RUN;
       chip8->PC = 0x200;
-      chip8->stack_ptr = 0;
+      chip8->SP = 0;
       chip8->rom_path = rom_path;
     }
   }
@@ -70,17 +70,35 @@ void chip8_instructions(chip8_t* chip8) {
   int instr = (chip8->memory[chip8->PC] << 8) | chip8->memory[chip8->PC + 1];
   chip8->PC += 2;
 
+  int NNN = instr & 0x0FFF;
+  int NN = instr & 0x0FF;
+  // int N = instr & 0x0F;
+  int X = (instr >> 8) & 0x0F;
+  // int Y = (instr >> 4) & 0x0F;
+
+  printf("Adress: 0x%04X | opcode: 0x%04X | SP 0x%04X ||| ", chip8->PC - 2,
+         instr, chip8->SP);
+
   switch ((instr >> 12) & 0x0F) {
     case 0x00:
-      if ((instr & 0x00FF) == 0x00E0) {
-        // Clear screen
-      } else if ((instr & 0x00FF) == 0x00EE) {
-        // Returns from subroutine
+      if (NN == 0xE0) {
+        // 00E0: Clear screen
+        memset(&chip8->pixel[0], 0, sizeof(chip8->pixel));
+        printf("=== Clear screen");
+      } else if (NN == 0xEE) {
+        // 00EE: Returns from subroutine
+        chip8->SP--;
+        chip8->PC = chip8->stack[chip8->SP];  // "pop"
+        printf("=== Returns from subroutine");
       }
       break;
 
     case 0x01:
-      // Jumps to adress NNN
+      // 1NNN: Jumps to adress NNN
+      chip8->stack[chip8->SP] = chip8->PC;  // "push"
+      if (chip8->SP < 11) chip8->SP++;
+      chip8->PC = NNN;
+      printf("=== Jump to 0x%04X", NNN);
       break;
 
     case 0x02:
@@ -100,7 +118,9 @@ void chip8_instructions(chip8_t* chip8) {
       break;
 
     case 0x06:
-      // Sets VX to NN
+      // 6XNN: Sets VX to NN
+      chip8->V[X] = NN;
+      printf("=== Now V[%1X] is 0x%04X", X, NN);
       break;
 
     case 0x07:
@@ -114,6 +134,9 @@ void chip8_instructions(chip8_t* chip8) {
       break;
 
     case 0x0A:
+      // ANNN: Sets I to NNN
+      chip8->I = NNN;
+      printf("=== Now I is 0x%04X", NNN);
       break;
 
     case 0x0B:
@@ -123,6 +146,15 @@ void chip8_instructions(chip8_t* chip8) {
       break;
 
     case 0x0D:
+      // DXYN: Draw a sprite at (VX, VY) with size of 8onN
+      // each row of 8px read from memory location I
+
+      // int x_coord = chip8->V[X] % 64;
+      // int y_coord = chip8->V[Y] % 32;
+
+      chip8->V[0xF] = 0;  // Carry flag
+
+      printf("=== Draw command");
       break;
 
     case 0x0E:
@@ -134,4 +166,6 @@ void chip8_instructions(chip8_t* chip8) {
     default:
       break;
   }
+
+  printf("\n");
 }

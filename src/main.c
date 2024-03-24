@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
 
   gui_t screen = {0};
   chip8_t chip8 = {0};
-  chip8.state = RUN;
+  // chip8.state = RUN;
 
   // Set screen configs
   gui_screen_configs(&screen, 100, 100, 64, 32, 0);
@@ -27,6 +27,12 @@ int main(int argc, char* argv[]) {
     // Main loop !!!
     while (chip8.state != QUIT) {
       gui_user_input(&chip8.state);
+
+      if (chip8.state == PAUSE) {
+        continue;  // skip all
+      }
+
+      chip8_instructions(&chip8);
 
       gui_fps_rate(60);
 

@@ -16,7 +16,7 @@ typedef struct {
   unsigned char memory[4096];
   int pixel[64 * 32];
   int stack[12];
-  int stack_ptr;
+  int SP;
   int V[16];
   int I;
   int delay;
