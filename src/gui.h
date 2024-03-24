@@ -19,7 +19,7 @@
 #define WHITE 0b111
 
 // Remove later
-#define SIZE_OF_SCREEN  10
+#define SIZE_OF_SCREEN 10
 
 typedef struct {
   SDL_Window* wnd;
@@ -29,25 +29,24 @@ typedef struct {
   int w;
   int h;
   unsigned int flags;
-} draw_t;
-
+} gui_t;
 
 // init SDL
 // 0 - OK
 // 1 - FAIL
-int gui_init(draw_t* screen);
+int gui_init(gui_t* screen);
 // finish SDL
-void gui_end(draw_t* screen);
+void gui_end(gui_t* screen);
 // screen configs
 // (x, y) - center coordinates
 // w x h - size
 // flags - some flags, read SDL wiki for more
-void gui_screen_configs(draw_t* screen, int x, int y, int w, int h,
+void gui_screen_configs(gui_t* screen, int x, int y, int w, int h,
                         unsigned int flags);
 // clear screen with color from define
-void gui_clear_screen(draw_t* screen, unsigned char color);
+void gui_clear_screen(gui_t* screen, unsigned char color);
 // Swap buffers
-void gui_update_screen(draw_t* screen);
+void gui_update_screen(gui_t* screen);
 // Handle user's input from keyboard
 void gui_user_input(emu_state_t* state);
 // FPS rate

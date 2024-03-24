@@ -10,12 +10,10 @@ BUILD_PATH = ../build/
 
 all: CHIP-8
 	
-
 CHIP-8:
 	$(CC) $(CFLAGS) $(SOURCE_FILES) -o $(BUILD_PATH)CHIP-8 $(SDLFLAGS)
 
 rebuild: clean all
-
 
 clean:
 	rm -rf $(BUILD_PATH)CHIP-8
