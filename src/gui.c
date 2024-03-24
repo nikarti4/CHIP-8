@@ -25,8 +25,8 @@ int gui_init(draw_t* screen) {
     flag = 1;
   } else {
     // wnd will be NULL on failure
-    screen->wnd = SDL_CreateWindow("CHIP-8", screen->x, screen->y, screen->w,
-                                   screen->h, screen->flags);
+    screen->wnd = SDL_CreateWindow("CHIP-8", screen->x, screen->y, screen->w * SIZE_OF_SCREEN,
+                                   screen->h * SIZE_OF_SCREEN, screen->flags);
     if (!screen->wnd) {
       SDL_Log("SDL_CreateWindow FAIL due to: %s \n", SDL_GetError());
       flag = 1;

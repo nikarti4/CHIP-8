@@ -5,6 +5,8 @@
 
 #include <SDL.h>
 
+#include "chip8.h"
+
 // Colors
 //--------------0bRGB
 #define BLACK 0b000
@@ -16,6 +18,9 @@
 #define BLUE 0b001
 #define WHITE 0b111
 
+// Remove later
+#define SIZE_OF_SCREEN  10
+
 typedef struct {
   SDL_Window* wnd;
   SDL_Renderer* rdr;
@@ -26,7 +31,6 @@ typedef struct {
   unsigned int flags;
 } draw_t;
 
-typedef enum { QUIT, RUN, PAUSE } emu_state_t;
 
 // init SDL
 // 0 - OK

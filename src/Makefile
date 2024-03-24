@@ -4,7 +4,7 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -std=c11 #-I/usr/include/SDL2 -D_REENTRANT -lSDL2
 SDLFLAGS = -lSDL2 `sdl2-config --cflags --libs`
-SOURCE_FILES = main.c gui.c
+SOURCE_FILES = main.c gui.c chip8.c
 BUILD_PATH = ../build/
 
 

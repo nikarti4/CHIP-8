@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "gui.h"
+#include "chip8.h"
 
 int main(int argc, char* argv[]) {
   printf("%d %s\n", argc, argv[argc - 1]);
@@ -9,7 +10,7 @@ int main(int argc, char* argv[]) {
   emu_state_t state = RUN;
 
   // Set screen configs
-  gui_screen_configs(&screen, 100, 100, 200, 200, 0);
+  gui_screen_configs(&screen, 100, 100, 64, 32, 0);
 
   // Init SDL and draw screen
   if (gui_init(&screen) != 0) {
